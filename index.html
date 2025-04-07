@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -422,98 +421,91 @@
         });
     
         // Artist data (in a real application, this would come from a database)
-      
-    <script>
-    const artists = [
-        {
-            id: 1,
-            name: "Bharatanatyam",
-            description: "Classical South Indian dance with rhythmic footwork and expressive gestures.",
-            image: "images/bhr.jpg",
-            available: true
-        },
-        {
-            id: 2,
-            name: "Thappattam",
-            description: "Traditional percussion instruments performing rhythmic patterns and beats.",
-            image: "images/drums.jpg",
-            available: false
-        },
-        {
-            id: 3,
-            name: "Karagattam",
-            description: "Folk dance performed balancing a decorated pot on the head.",
-            image: "images/km.jpg",
-            available: true
-        },
-        {
-            id: 4,
-            name: "Puliyattam",
-            description: "Tiger dance from Tamil Nadu, featuring vibrant costumes and energetic movements.",
-            image: "images/pl.jpg",
-            available: true
-        },
-        {
-            id: 5,
-            name: "Mayilattam",
-            description: "Peacock dance mimicking the graceful movements of peacocks.",
-            image: "images/my.jpg",
-            available: false
-        },
-        {
-            id: 6,
-            name: "Oyilattam",
-            description: "Energetic folk dance featuring sequential body movements and formations.",
-            image: "images/om2.jpg",
-            available: true
-        }
-    ];
+        const artists = [
+            {
+                id: 1,
+                name: "Bharatanatyam",
+                description: "Classical South Indian dance with rhythmic footwork and expressive gestures.",
+                image: "bhr.jpg",
+                available: true
+            },
+            {
+                id: 2,
+                name: "Thappattam",
+                description: "Traditional percussion instruments performing rhythmic patterns and beats.",
+                image: "drums.jpg",
+                available: false
+            },
+            {
+                id: 3,
+                name: "Karagattam",
+                description: "Folk dance performed balancing a decorated pot on the head.",
+                image: "km.jpg",
+                available: true
+            },
+            {
+                id: 4,
+                name: "Puliyattam",
+                description: "Tiger dance from Tamil Nadu, featuring vibrant costumes and energetic movements.",
+                image: "pl.jpg",
+                available: true
+            },
+            {
+                id: 5,
+                name: "Mayilattam",
+                description: "Peacock dance mimicking the graceful movements of peacocks.",
+                image: "my.jpg",
+                available: false
+            },
+            {
+                id: 6,
+                name: "Oyilattam",
+                description: "Energetic folk dance featuring sequential body movements and formations.",
+                image: "om2.jpg",
+                available: true
+            }
+        ];
 
-    // Function to display artists
-    function displayArtists() {
-        const artistGrid = document.getElementById('artistGrid');
-        artistGrid.innerHTML = '';
-        
-        artists.forEach(artist => {
-            const artistCard = document.createElement('div');
-            artistCard.className = 'artist-card';
+        // Function to display artists
+        function displayArtists() {
+            const artistGrid = document.getElementById('artistGrid');
+            artistGrid.innerHTML = '';
             
-            artistCard.innerHTML = `
-                <div class="artist-image" style="background-image: url('${artist.image}')"></div>
-                <div class="artist-info">
-                    <h3 class="artist-name">${artist.name}</h3>
-                    <p class="artist-description">${artist.description}</p>
-                    <span class="availability ${artist.available ? 'available' : 'booked'}">
-                        ${artist.available ? 'Available' : 'Currently Booked'}
-                    </span>
-                </div>
-            `;
-            
-            // Add click event to artist card
-            artistCard.addEventListener('click', () => {
-                if (artist.available) {
-                    showBookingModal(artist);
-                } else {
-                    alert(`${artist.name} is currently booked. Please check back later.`);
-                }
+            artists.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.className = 'artist-card';
+                
+                artistCard.innerHTML = 
+                    <div class="artist-image" style="background-image: url('${artist.image}')"></div>
+                    <div class="artist-info">
+                        <h3 class="artist-name">${artist.name}</h3>
+                        <p class="artist-description">${artist.description}</p>
+                        <span class="availability ${artist.available ? 'available' : 'booked'}">
+                            ${artist.available ? 'Available' : 'Currently Booked'}
+                        </span>
+                    </div>
+                ;
+                
+                // Add click event to artist card
+                artistCard.addEventListener('click', () => {
+                    if (artist.available) {
+                        showBookingModal(artist);
+                    } else {
+                        alert(${artist.name} is currently booked. Please check back later.);
+                    }
+                });
+                
+                artistGrid.appendChild(artistCard);
             });
-            
-            artistGrid.appendChild(artistCard);
-        });
-    }
-
-    // Function to show booking modal
-    function showBookingModal(artist) {
-        const confirmed = confirm(`Would you like to book ${artist.name} for your event?`);
-        if (confirmed) {
-            alert(`Thank you for your interest in booking ${artist.name}! Our team will contact you soon with more details.`);
         }
-    }
 
-    // Call on page load
-    window.onload = displayArtists;
-</script>
-
+        // Function to show booking modal
+        function showBookingModal(artist) {
+            const confirmed = confirm(Would you like to book ${artist.name} for your event?);
+            if (confirmed) {
+                alert(Thank you for your interest in booking ${artist.name}! Our team will contact you soon with more details.);
+            }
+        }
 
         // Contact form submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
@@ -574,4 +566,4 @@
         });
     </script>
 </body>
-</html>  
+</html> 
