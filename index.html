@@ -1,83 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Folk Dance Showcase</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artify - Folk Dance Performer Showcase</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .bg-image {
+            background-size: cover;
+            background-position: center;
+        }
+        .artist-card {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .artist-card:hover {
+            transform: translateY(-5px);
+        }
+        .artist-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .artist-info {
+            padding: 1rem;
+        }
+        .availability {
+            font-weight: bold;
+        }
+        .available {
+            color: green;
+        }
+        .booked {
+            color: red;
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-white text-gray-800">
+<body class="bg-gray-100 text-gray-800">
 
-  <div class="container mx-auto py-8 px-4">
-    <h1 class="text-3xl font-bold mb-6 text-center">Folk Dance Showcase</h1>
-    <div id="artistGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </div>
-
-  <script>
-    const artists = [
-      {
-        id: 1,
-        name: "Bharatanatyam",
-        description: "Classical South Indian dance with rhythmic footwork and expressive gestures.",
-        image: "bhr.jpg",
-        available: true
-      },
-      {
-        id: 2,
-        name: "Thappattam",
-        description: "Traditional percussion instruments performing rhythmic patterns and beats.",
-        image: "drums.jpg",
-        available: false
-      },
-      {
-        id: 3,
-        name: "Karagattam",
-        description: "Folk dance performed balancing a decorated pot on the head.",
-        image: "km.jpg",
-        available: true
-      },
-      {
-        id: 4,
-        name: "Puliyattam",
-        description: "Tiger dance from Tamil Nadu, featuring vibrant costumes and energetic movements.",
-        image: "pl.jpg",
-        available: true
-      },
-      {
-        id: 5,
-        name: "Mayilattam",
-        description: "Peacock dance mimicking the graceful movements of peacocks.",
-        image: "my.jpg",
-        available: false
-      },
-      {
-        id: 6,
-        name: "Oyilattam",
-        description: "Energetic folk dance featuring sequential body movements and formations.",
-        image: "om2.jpg",
-        available: true
-      }
-    ];
-
-    const artistGrid = document.getElementById("artistGrid");
-
-    artists.forEach(artist => {
-      const card = document.createElement("div");
-      card.className = "bg-gray-100 rounded-xl shadow-lg overflow-hidden";
-
-      card.innerHTML = `
-        <img src="${artist.image}" alt="${artist.name}" class="w-full h-48 object-cover">
-        <div class="p-4">
-          <h2 class="text-xl font-bold">${artist.name}</h2>
-          <p class="mt-2 text-gray-700">${artist.description}</p>
-          <p class="mt-2 font-medium ${artist.available ? 'text-green-600' : 'text-red-500'}">
-            ${artist.available ? 'Available' : 'Not Available'}
-          </p>
+    <!-- Navbar -->
+    <nav class="bg-white shadow p-4 fixed w-full z-10 top-0">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-pink-600">Artify</h1>
+            <div class="space-x-4">
+                <a href="#artists" class="hover:text-pink-500">Artists</a>
+                <a href="#contact" class="hover:text-pink-500">Contact</a>
+            </div>
         </div>
-      `;
-      artistGrid.appendChild(card);
-    });
-  </script>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-image h-screen flex items-center justify-center text-white relative" style="background-image: url('https://via.placeholder.com/1920x1080/000000/ffffff?text=Artify+Background'); margin-top: 64px;">
+        <div class="bg-black bg-opacity-50 p-10 rounded-xl text-center max-w-xl">
+            <h2 class="text-4xl font-bold mb-4">Celebrate Culture Through Dance</h2>
+            <p class="mb-6">Book talented folk dance performers for your next cultural event.</p>
+            <a href="#artists" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-full">Explore Artists</a>
+        </div>
+    </section>
+
+    <!-- Artist Section -->
+    <section id="artists" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10">Our Folk Dance Artists</h2>
+            <div class="mb-8 flex justify-center">
+                <input id="searchInput" type="text" placeholder="Search by dance name..." class="w-1/2 px-4 py-2 border border-gray-300 rounded-lg">
+            </div>
+            <div id="artistGrid" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="bg-gray-50 py-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-10">Get in Touch</h2>
+            <form id="contactForm" class="space-y-6 bg-white p-8 rounded-xl shadow-md">
+                <div>
+                    <label for="name" class="block mb-2 font-semibold">Name</label>
+                    <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                </div>
+                <div>
+                    <label for="email" class="block mb-2 font-semibold">Email</label>
+                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg" required>
+                </div>
+                <div>
+                    <label for="message" class="block mb-2 font-semibold">Message</label>
+                    <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg" required></textarea>
+                </div>
+                <button type="submit" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-6 rounded-full">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script>
+        // Set background image and load artists
+        document.addEventListener('DOMContentLoaded', function () {
+            displayArtists();
+        });
+
+        const artists = [
+            {
+                id: 1,
+                name: "Bharatanatyam",
+                description: "Classical South Indian dance with rhythmic footwork and expressive gestures.",
+                image: "bhr.jpg",
+                available: true
+            },
+            {
+                id: 2,
+                name: "Thappattam",
+                description: "Traditional percussion instruments performing rhythmic patterns and beats.",
+                image: "drums.jpg",
+                available: false
+            },
+            {
+                id: 3,
+                name: "Karagattam",
+                description: "Folk dance performed balancing a decorated pot on the head.",
+                image: "km.jpg",
+                available: true
+            },
+            {
+                id: 4,
+                name: "Puliyattam",
+                description: "Tiger dance from Tamil Nadu, featuring vibrant costumes and energetic movements.",
+                image: "pl.jpg",
+                available: true
+            },
+            {
+                id: 5,
+                name: "Mayilattam",
+                description: "Peacock dance mimicking the graceful movements of peacocks.",
+                image: "my.jpg",
+                available: false
+            },
+            {
+                id: 6,
+                name: "Oyilattam",
+                description: "Energetic folk dance featuring sequential body movements and formations.",
+                image: "om2.jpg",
+                available: true
+            }
+        ];
+
+        function displayArtists(filtered = null) {
+            const artistGrid = document.getElementById('artistGrid');
+            artistGrid.innerHTML = '';
+            const toDisplay = filtered || artists;
+
+            toDisplay.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.className = 'artist-card';
+
+                artistCard.innerHTML = `
+                    <div class="artist-image" style="background-image: url('${artist.image}')"></div>
+                    <div class="artist-info">
+                        <h3 class="artist-name text-xl font-bold">${artist.name}</h3>
+                        <p class="artist-description my-2">${artist.description}</p>
+                        <span class="availability ${artist.available ? 'available' : 'booked'}">
+                            ${artist.available ? 'Available' : 'Currently Booked'}
+                        </span>
+                    </div>
+                `;
+
+                artistCard.addEventListener('click', () => {
+                    if (artist.available) {
+                        showBookingModal(artist);
+                    } else {
+                        alert(`${artist.name} is currently booked. Please check back later.`);
+                    }
+                });
+
+                artistGrid.appendChild(artistCard);
+            });
+        }
+
+        function showBookingModal(artist) {
+            const confirmed = confirm(`Would you like to book ${artist.name} for your event?`);
+            if (confirmed) {
+                alert(`Thank you for your interest in booking ${artist.name}! Our team will contact you soon.`);
+            }
+        }
+
+        // Contact form handler
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert("Thank you for reaching out! We'll get back to you shortly.");
+            this.reset();
+        });
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const filtered = artists.filter(artist => artist.name.toLowerCase().includes(query));
+            displayArtists(filtered);
+        });
+    </script>
 
 </body>
 </html>
+
