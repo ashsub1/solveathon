@@ -3,74 +3,568 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Artify - Folk Dance Showcase</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artify - Book Artists & Performers</title>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #88b754;
+            color: #9c0b0b;
+            position: relative;
+        }
+
+        /* Background Image */
+        .bg-image {
+            position: fixed;
+            top: 36;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #88b754;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        /* Content Overlay */
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: rgb(38, 106, 183);
+            background-color: rgba(235, 223, 223, 0.5);
+        }
+
+        .hero-logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 72px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(209, 196, 196, 0.5);
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .hero-tagline {
+            font-size: 24px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 4px rgba(235, 232, 232, 0.5);
+        }
+
+        .hero-cta {
+            background-color: #c30000;
+            color: rgb(15, 17, 3);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(4, 16, 6, 0.3);
+        }
+
+        .hero-cta:hover {
+            background-color: #a30000;
+            transform: translateY(-3px);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(30, 166, 41, 0.85);
+            padding: 15px 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #110303;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #080202;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #c30000;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            padding: 20px 0;
+            background-color: rgba(30, 166, 41, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 70px;
+        }
+
+        .search-bar {
+            width: 70%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: #c30000;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Artist Categories Styles */
+        .categories {
+            padding: 50px;
+            background-color: rgba(30, 166, 41, 0.85);
+            margin: 30px;
+            border-radius: 10px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #e32914;
+        }
+
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .artist-card {
+            background-color: #030e06;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            color: #fff;
+            border: 1px solid #010502;
+        }
+
+        .artist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(195, 0, 0, 0.3);
+            border-color: #21a5f1;
+        }
+
+        .artist-image {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .artist-info {
+            padding: 20px;
+        }
+
+        .artist-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #d3f20d;
+        }
+
+        .artist-description {
+            color: #bbb;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .availability {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .available {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #4dff77;
+            border: 1px solid #28a745;
+        }
+
+        .booked {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: rgba(30, 166, 41, 0.85);
+            border: 1px solid  rgba(30, 166, 41, 0.85);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #070216;
+            color: #e7e8f1;
+            padding: 50px;
+            margin-top: 30px;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color:rgba(30, 166, 41, 0.85);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #92888d;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #0b0101;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            background-color: rgba(200, 211, 214, 0.4);
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #99dd07;
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 150px;
+        }
+
+        .submit-btn {
+            background-color: #c30000;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #14cc39;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero-logo {
+                font-size: 48px;
+            }
+
+            .hero-tagline {
+                font-size: 18px;
+            }
+
+            .categories {
+                padding: 30px 20px;
+                margin: 15px;
+            }
+
+            .artist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Background Image -->
+    <div class="bg-image"></div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo">Artify</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Signup</a></li>
-        </ul>
-    </nav>
+    <div class="content">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">Artify</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#artists">Artists</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+        </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <h1>Welcome to Artify</h1>
-        <p>Celebrate the vibrant world of Indian folk dances</p>
-    </header>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <h1 class="hero-logo">ARTIFY</h1>
+            <p class="hero-tagline">ART FROM THE HEARTLAND</p>
+            <a href="#artists" class="hero-cta">Explore Artists</a>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <h2>About Artify</h2>
-        <p>
-            Artify is a platform to showcase and celebrate the diverse folk dance forms of India.
-            From the energetic beats of drums to the graceful movements of classical dances,
-            we bring together artists, enthusiasts, and cultural admirers to keep traditions alive.
-        </p>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <h2>Dance Forms Gallery</h2>
-        <div class="image-grid">
-            <div class="dance">
-                <img src="images/km.jpg" alt="Karagattam dance">
-                <p>Karagattam - Tamil Nadu</p>
-            </div>
-            <div class="dance">
-                <img src="images/pl.jpg" alt="Pulikali dance">
-                <p>Pulikali - Kerala</p>
-            </div>
-            <div class="dance">
-                <img src="images/bhr.jpg" alt="Bharatanatyam dance">
-                <p>Bharatanatyam - Tamil Nadu</p>
-            </div>
-            <div class="dance">
-                <img src="images/drums.jpg" alt="Drum folk dance">
-                <p>Drum Dance - Rural Tamil Nadu</p>
-            </div>
-            <div class="dance">
-                <img src="images/my.jpg" alt="Mayilattam dance">
-                <p>Mayilattam - Peacock Dance</p>
-            </div>
-            <div class="dance">
-                <img src="images/om2.jpg" alt="Folk Ensemble">
-                <p>Folk Dance Ensemble</p>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search for artists, performances, or events...">
+                <button>Search</button>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Artify. All rights reserved.</p>
-    </footer>
+        <!-- Artist Categories -->
+        <section class="categories" id="artists">
+            <h2 class="section-title">Explore Artists</h2>
+            <div class="artist-grid" id="artistGrid">
+                <!-- Artists will be populated by JavaScript -->
+            </div>
+        </section>
 
+        <!-- Footer with Contact Form -->
+        <footer class="footer" id="contact">
+            <div class="contact-form">
+                <h2 class="form-title">Contact Us</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Region">Region</label>
+                        <input type="Region" id="Region" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">phone</label>
+                        <input type="text" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="query">Your Query</label>
+                        <textarea id="query" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // When the page loads, set the actual background image
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the background image from the provided image
+            document.querySelector('.bg-image').style.backgroundImage = "url('https://via.placeholder.com/1920x1080/000000/ffffff?text=Artify+Background')";
+            
+            // To use the image in your message, replace the placeholder URL above with the actual image URL
+            // In a real implementation, you would upload this image to your server
+        });
+    
+        // Artist data (in a real application, this would come from a database)
+        const artists = [
+            {
+                id: 1,
+                name: "Bharatanatyam",
+                description: "Classical South Indian dance with rhythmic footwork and expressive gestures.",
+                image: "bhr.jpg",
+                available: true
+            },
+            {
+                id: 2,
+                name: "Thappattam",
+                description: "Traditional percussion instruments performing rhythmic patterns and beats.",
+                image: "drums.jpg",
+                available: false
+            },
+            {
+                id: 3,
+                name: "Karagattam",
+                description: "Folk dance performed balancing a decorated pot on the head.",
+                image: "km.jpg",
+                available: true
+            },
+            {
+                id: 4,
+                name: "Puliyattam",
+                description: "Tiger dance from Tamil Nadu, featuring vibrant costumes and energetic movements.",
+                image: "pl.jpg",
+                available: true
+            },
+            {
+                id: 5,
+                name: "Mayilattam",
+                description: "Peacock dance mimicking the graceful movements of peacocks.",
+                image: "my.jpg",
+                available: false
+            },
+            {
+                id: 6,
+                name: "Oyilattam",
+                description: "Energetic folk dance featuring sequential body movements and formations.",
+                image: "om2.jpg",
+                available: true
+            }
+        ];
+
+        // Function to display artists
+        function displayArtists() {
+            const artistGrid = document.getElementById('artistGrid');
+            artistGrid.innerHTML = '';
+            
+            artists.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.className = 'artist-card';
+                
+                artistCard.innerHTML = 
+                    <div class="artist-image" style="background-image: url('${artist.image}')"></div>
+                    <div class="artist-info">
+                        <h3 class="artist-name">${artist.name}</h3>
+                        <p class="artist-description">${artist.description}</p>
+                        <span class="availability ${artist.available ? 'available' : 'booked'}">
+                            ${artist.available ? 'Available' : 'Currently Booked'}
+                        </span>
+                    </div>
+                ;
+                
+                // Add click event to artist card
+                artistCard.addEventListener('click', () => {
+                    if (artist.available) {
+                        showBookingModal(artist);
+                    } else {
+                        alert(${artist.name} is currently booked. Please check back later.);
+                    }
+                });
+                
+                artistGrid.appendChild(artistCard);
+            });
+        }
+
+        // Function to show booking modal
+        function showBookingModal(artist) {
+            const confirmed = confirm(Would you like to book ${artist.name} for your event?);
+            if (confirmed) {
+                alert(Thank you for your interest in booking ${artist.name}! Our team will contact you soon with more details.);
+            }
+        }
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const query = document.getElementById('query').value;
+            
+            // In a real application, you would send this data to a server
+            alert(Thank you, ${name}! Your query has been submitted. We'll get back to you at ${email} soon.);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Search functionality
+        document.querySelector('.search-bar input').addEventListener('keyup', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            const filteredArtists = artists.filter(artist => 
+                artist.name.toLowerCase().includes(searchTerm) || 
+                artist.description.toLowerCase().includes(searchTerm)
+            );
+            
+            const artistGrid = document.getElementById('artistGrid');
+            artistGrid.innerHTML = '';
+            
+            if (filteredArtists.length === 0) {
+                artistGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 30px; color: #fff;">No artists found matching your search.</p>';
+                return;
+            }
+            
+            filteredArtists.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.className = 'artist-card';
+                
+                artistCard.innerHTML = 
+                    <div class="artist-image" style="background-image: url('${artist.image}')"></div>
+                    <div class="artist-info">
+                        <h3 class="artist-name">${artist.name}</h3>
+                        <p class="artist-description">${artist.description}</p>
+                        <span class="availability ${artist.available ? 'available' : 'booked'}">
+                            ${artist.available ? 'Available' : 'Currently Booked'}
+                        </span>
+                    </div>
+                ;
+                
+                artistGrid.appendChild(artistCard);
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayArtists();
+        });
+    </script>
 </body>
-</html>
+</html>  
