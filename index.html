@@ -422,50 +422,56 @@
         });
     
         // Artist data (in a real application, this would come from a database)
-        const artists = [
-            {
-                id: 1,
-                name: "Bharatanatyam",
-                description: "Classical South Indian dance with rhythmic footwork and expressive gestures.",
-                image: "bhr.jpg",
-                available: true
-            },
-            {
-                id: 2,
-                name: "Thappattam",
-                description: "Traditional percussion instruments performing rhythmic patterns and beats.",
-                image: "drums.jpg",
-                available: false
-            },
-            {
-                id: 3,
-                name: "Karagattam",
-                description: "Folk dance performed balancing a decorated pot on the head.",
-                image: "km.jpg",
-                available: true
-            },
-            {
-                id: 4,
-                name: "Puliyattam",
-                description: "Tiger dance from Tamil Nadu, featuring vibrant costumes and energetic movements.",
-                image: "pl.jpg",
-                available: true
-            },
-            {
-                id: 5,
-                name: "Mayilattam",
-                description: "Peacock dance mimicking the graceful movements of peacocks.",
-                image: "my.jpg",
-                available: false
-            },
-            {
-                id: 6,
-                name: "Oyilattam",
-                description: "Energetic folk dance featuring sequential body movements and formations.",
-                image: "om2.jpg",
-                available: true
-            }
-        ];
+       <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Artify - Folk Dance Showcase</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Artify: A Celebration of Indian Folk Dances</h1>
+    </header>
+
+    <main>
+        <section class="gallery">
+            <h2>Dance Forms Gallery</h2>
+            <div class="image-grid">
+                <div class="dance">
+                    <img src="images/km.jpg" alt="Karagattam dance">
+                    <p>Karagattam - Tamil Nadu</p>
+                </div>
+                <div class="dance">
+                    <img src="images/pl.jpg" alt="Pulikali dance">
+                    <p>Pulikali - Kerala</p>
+                </div>
+                <div class="dance">
+                    <img src="images/bhr.jpg" alt="Bharatanatyam dance">
+                    <p>Bharatanatyam - Tamil Nadu</p>
+                </div>
+                <div class="dance">
+                    <img src="images/drums.jpg" alt="Drum folk dance">
+                    <p>Drum Dance - Rural Tamil Nadu</p>
+                </div>
+                <div class="dance">
+                    <img src="images/my.jpg" alt="Mayilattam dance">
+                    <p>Mayilattam - Peacock Dance</p>
+                </div>
+                <div class="dance">
+                    <img src="images/om2.jpg" alt="Other folk dance">
+                    <p>Folk Dance Ensemble</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Artify. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
 
         // Function to display artists
         function displayArtists() {
